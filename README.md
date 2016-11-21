@@ -6,14 +6,14 @@ Sms interface, that based on [aspnet boilerplate]("http://www.aspnetboilerplate.
 
 ## How to use
 
-### Create a sms sender service
+### 1. Create a sms sender service
 For example, use AliDaYu
 
-- 1. Install QifuTopSDK
+- a. Install QifuTopSDK
 
 `Install-Package QifuTopSDK`
 
-- 2. Write sms sender adapter for AliDaYu
+- b. Write sms sender adapter for AliDaYu
 ```
 using Abp.Dependency;
 using Abp.Net.Sms;
@@ -98,7 +98,7 @@ public class AliDayuSmsSender : SmsSenderBase, ITransientDependency
 }
 ```
 
-- 3. Write Setting Provider
+- c. Write Setting Provider
 ```
 using System.Collections.Generic;
 using System.Configuration;
@@ -127,7 +127,7 @@ public class AppSettingProvider : SettingProvider
 }
 ```
 
-- 4. Configurate default setting in Web.config
+- d. Configurate default setting in Web.config
 ```
     <!--Production-->
     <add key="Abp.Net.Sms.ServiceUrl" value="http://gw.api.taobao.com/router/rest" />
@@ -141,7 +141,7 @@ public class AppSettingProvider : SettingProvider
     <add key="Abp.Net.Sms.DefaultFreeSignName" value="大鱼测试" />
 ```
 
-### Use it in Asp.Net Identity or AbpZero
+### 2. If you want to use it in Asp.Net Identity or AbpZero, or you can skip it.
 You should implement `Microsoft.AspNet.Identity.IIdentityMessageService`. Then you can send sms in userManager class.
 
 ```
@@ -183,3 +183,17 @@ public class IdentitySmsMessageService : IIdentityMessageService, ITransientDepe
     }
 }
 ```
+
+### 3. Set NullSmsSender if in debug mode
+Write it in abp module file in project XXX.Core.
+```
+if (DebugHelper.IsDebug)
+{
+    //Disabling sms sending in debug mode
+    IocManager.Register<ISmsSender, NullSmsSender>(DependencyLifeStyle.Transient);
+}
+```
+
+### 4. Use it in domain or application layer.
+You just inject `ISmsSender` into construction, like other DI object.
+Congratulation! You finished.
