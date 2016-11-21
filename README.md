@@ -29,7 +29,9 @@ public class AliDayuSmsSender : SmsSenderBase, ITransientDependency
     private ITopClient client = null;
     public AliDayuSmsSender(ISmsSenderConfiguration configuration) : base(configuration)
     {
-        client = new DefaultTopClient(configuration.GetServiceUrl(), configuration.GetAppKey(), configuration.GetAppSecret());
+        client = new DefaultTopClient(configuration.GetServiceUrl(),
+            configuration.GetAppKey(),
+            configuration.GetAppSecret());
     }
 
     protected override void SendSms(SmsMessage sms)
@@ -39,17 +41,25 @@ public class AliDayuSmsSender : SmsSenderBase, ITransientDependency
         req.SmsFreeSignName = sms.FreeSignName;
         req.SmsParam = sms.TemplateParams;
         req.RecNum = sms.To;
-        req.SmsTemplateCode = string.IsNullOrEmpty(sms.TemplateCode) ? _configuration.GetDefaultSmsTemplateCode() : sms.TemplateCode;
+        req.SmsTemplateCode = string.IsNullOrEmpty(sms.TemplateCode)
+                ? _configuration.GetDefaultSmsTemplateCode()
+                : sms.TemplateCode;
         AlibabaAliqinFcSmsNumSendResponse rsp = client.Execute(req);
         if (rsp.IsError)
         {
             throw new UserFriendlyException("Sms send fail",
-                new Exception(string.Format("to:{0},errCode:{1},errMsg:{2}", sms.To, rsp.ErrCode, rsp.ErrMsg)));
+                new Exception(string.Format("to:{0},errCode:{1},errMsg:{2}",
+                    sms.To,
+                    rsp.ErrCode,
+                    rsp.ErrMsg)));
         }
         if (rsp.Result != null && !rsp.Result.Success)
         {
             throw new UserFriendlyException("Sms send fail",
-                new Exception(string.Format("to:{0},result.errCode:{1},result.errMsg:{2}", sms.To, rsp.Result.ErrCode, rsp.Result.Msg)));
+                new Exception(string.Format("to:{0},result.errCode:{1},result.errMsg:{2}",
+                    sms.To,
+                    rsp.Result.ErrCode,
+                    rsp.Result.Msg)));
         }
     }
 
@@ -60,18 +70,26 @@ public class AliDayuSmsSender : SmsSenderBase, ITransientDependency
         req.SmsFreeSignName = sms.FreeSignName;
         req.SmsParam = sms.TemplateParams;
         req.RecNum = sms.To;
-        req.SmsTemplateCode = string.IsNullOrEmpty(sms.TemplateCode) ? _configuration.GetDefaultSmsTemplateCode() : sms.TemplateCode;
+        req.SmsTemplateCode = string.IsNullOrEmpty(sms.TemplateCode)
+            ? _configuration.GetDefaultSmsTemplateCode()
+            : sms.TemplateCode;
         var task = new Task(()=> {
             AlibabaAliqinFcSmsNumSendResponse rsp = client.Execute(req);
             if (rsp.IsError)
             {
                 throw new UserFriendlyException("Sms send fail",
-                    new Exception(string.Format("to:{0},errCode:{1},errMsg:{2}", sms.To, rsp.ErrCode, rsp.ErrMsg)));
+                    new Exception(string.Format("to:{0},errCode:{1},errMsg:{2}",
+                        sms.To,
+                        rsp.ErrCode,
+                        rsp.ErrMsg)));
             }
             if (rsp.Result != null && !rsp.Result.Success)
             {
                 throw new UserFriendlyException("Sms send fail",
-                    new Exception(string.Format("to:{0},result.errCode:{1},result.errMsg:{2}", sms.To, rsp.Result.ErrCode, rsp.Result.Msg)));
+                    new Exception(string.Format("to:{0},result.errCode:{1},result.errMsg:{2}",
+                        sms.To,
+                        rsp.Result.ErrCode,
+                        rsp.Result.Msg)));
             }
         });
         task.Start();
