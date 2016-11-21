@@ -250,3 +250,8 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+
+tools/Nuget/*/lib/net40/*.dll
+tools/Nuget/*/lib/net40/*.pdb
+tools/Nuget/*/lib/net40/*.XML

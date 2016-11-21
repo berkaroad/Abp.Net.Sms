@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Abp.Net.Sms</id>
+    <version>1.0.0</version>
+    <title>Abp.Net.Sms</title>
+    <authors>Berkaroad&lt;chinaren_bjr@163.com&gt;</authors>
+    <owners>Berkaroad&lt;chinaren_bjr@163.com&gt;</owners>
+    <licenseUrl>https://raw.githubusercontent.com/berkaroad/Abp.Net.Sms/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/berkaroad/Abp.Net.Sms</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/berkaroad/Abp.Net.Sms/master/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Use sms interface in abp project, you can implement by sms provider such as alidayu.</description>
+    <summary>Sms interface in abp framework</summary>
+    <language>en-US</language>
+    <copyright>Copyright berkaroad 2016</copyright>
+    <tags>abp aspnetboilerplate sms</tags>
+    <dependencies>
+      <dependency id="Abp" version="1.0.0.0" />
+      <dependency id="Castle.Core" version="3.3.3" />
+      <dependency id="Castle.LoggingFacility" version="3.3.0" />
+      <dependency id="Castle.Windsor" version="3.3.0" />
+      <dependency id="Newtonsoft.Json" version="9.0.1" />
+      <dependency id="Nito.AsyncEx" version="3.0.1" />
+      <dependency id="System.Collections.Immutable" version="1.2.0" />
+      <dependency id="System.Linq.Dynamic" version="1.0.7" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework="net40" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="lib\net40\Abp.Net.Sms.dll" target="lib\net40\Abp.Net.Sms.dll" />
+    <file src="lib\net40\Abp.Net.Sms.XML" target="lib\net40\Abp.Net.Sms.dll.XML" />
+    <file src="tools\" target="tools" />
+    <!-- <file src="content\" target="content" /> -->
+  </files>
+</package>
