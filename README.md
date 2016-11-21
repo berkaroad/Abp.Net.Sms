@@ -141,7 +141,7 @@ public class AppSettingProvider : SettingProvider
     <add key="Abp.Net.Sms.DefaultFreeSignName" value="大鱼测试" />
 ```
 
-### 2. If you want to use it in Asp.Net Identity or AbpZero, or you can skip it.
+### 2. If you want to use it in Asp.Net Identity or AbpZero, otherwise you can skip it.
 You should implement `Microsoft.AspNet.Identity.IIdentityMessageService`. Then you can send sms in userManager class.
 
 ```
